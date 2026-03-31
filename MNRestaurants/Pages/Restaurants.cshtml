@@ -1,0 +1,50 @@
+﻿@page
+@model Restaurants.Pages.RestaurantsModel
+@{
+    ViewData["Title"] = "Minnesota Restaurants";
+}
+
+<!-- Main page heading -->
+<h1>Minnesota Bucket List Restaurants</h1>
+
+<!-- Form that submits restaurant selection via POST method -->
+<form method="post">
+
+    <!-- Dropdown list bound to SelectedRestaurantId and populated from Model.RestaurantList -->
+    <select asp-for="SelectedRestaurantId" asp-items="Model.RestaurantList" class="form-control">
+        
+        <!-- Default option when no restaurant is selected -->
+        <option value="">Select a Restaurant</option>
+
+    </select>
+
+    <!-- Submit button to send the form and display selected restaurant details -->
+    <button type="submit" class="btn btn-primary mt-2">Show Restaurant</button>
+
+</form>
+
+<!-- Only display this section if a restaurant has been selected -->
+@if (Model.SelectedRestaurant != null)
+{
+    <!-- Container for restaurant details -->
+    <div class="mt-4">
+
+        <!-- Display restaurant name -->
+        <h2>@Model.SelectedRestaurant.Name</h2>
+
+        <!-- Display restaurant description -->
+        <p>@Model.SelectedRestaurant.Description</p>
+
+        <!-- Display restaurant location -->
+        <p><strong>Location:</strong> @Model.SelectedRestaurant.Location</p>
+
+        <!-- Display type of food -->
+        <p><strong>Food Type:</strong> @Model.SelectedRestaurant.FoodType</p>
+
+        <!-- Display restaurant image -->
+        <img src="/images/@Model.SelectedRestaurant.ImageFileName"
+             alt="@Model.SelectedRestaurant.Name"
+             style="max-width: 300px;" />
+
+    </div>
+}
